@@ -6,9 +6,8 @@ The "Hello from Symfony!👋" application is just a starter to show a minimalist
 Requirements
 ------------
 
-* PHP 8.2.0 or higher;
-* PDO-SQLite PHP extension enabled;
-* and the [usual Symfony application requirements][1].
+* [Symfony application requirements][1].
+* [Docker Desktop][2]
 
 Installation
 ------------
@@ -16,39 +15,53 @@ Installation
 Clone this repository:
 
 ```console
-https://github.com/abdounikarim/poc-symfony-hello
+https://github.com/abdounikarim/poc-symfony
 ```
 
 Go on the project root folder:
 
 ```console
-cd poc-symfony-hello/
-```
-
-Install PHP dependencies:
-
-```console
-composer install
+cd poc-symfony/
 ```
 
 Usage
 -----
 
-There's no need to configure anything before running the application. There are
-2 different ways of running this application depending on your needs:
-
-**Option 1.** [Download Symfony CLI][2] and run this command:
-
-```bash
-symfony serve
+Build image for dev:
+```console
+docker compose build --no-cache
 ```
 
-Then access the application in your browser at the given URL (<https://localhost:8000> by default).
+Execute this command to launch docker container in dev:
+```console
+docker compose up -d
+```
 
-**Option 2.** Use the built-in PHP web server:
+Then access the application in your browser at the given URL (<https://localhost> by default).
 
-```bash
-php -S localhost:8000 -t public/
+Destroy docker container:
+```console
+docker compose down --remove-orphans
+```
+
+Build image for prod:
+```console
+docker compose -f compose.yaml -f compose.prod.yaml build
+```
+
+Execute this command to launch docker container in prod:
+```console
+docker compose -f compose.yaml -f compose.prod.yaml up -d
+```
+
+Check the app is in prod environment:
+```console
+docker compose exec php bin/console
+```
+
+If you have some trouble, you can check the logs:
+```console
+docker compose logs -f
 ```
 
 Tests
@@ -56,9 +69,9 @@ Tests
 
 Execute this command to run tests:
 
-```bash
-./bin/phpunit
+```console
+docker compose exec php bin/phpunit
 ```
 
 [1]: https://symfony.com/doc/current/setup.html#technical-requirements
-[2]: https://symfony.com/download
+[2]: https://www.docker.com/products/docker-desktop/
