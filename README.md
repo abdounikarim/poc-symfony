@@ -8,6 +8,7 @@ Requirements
 
 * [Symfony application requirements][1].
 * [Docker Desktop][2]
+* [Make][3]
 
 Installation
 ------------
@@ -27,41 +28,36 @@ cd poc-symfony/
 Usage
 -----
 
-Build image for dev:
-```console
-docker compose build --no-cache
-```
+Run the project in dev environment:
 
-Execute this command to launch docker container in dev:
 ```console
-docker compose up -d
+make install
 ```
 
 Then access the application in your browser at the given URL (<https://localhost> by default).
 
-Destroy docker container:
+Check the app environment:
+
 ```console
-docker compose down --remove-orphans
+make env
 ```
 
-Build image for prod:
-```console
-docker compose -f compose.yaml -f compose.prod.yaml build
-```
+Run the project in prod environment:
 
-Execute this command to launch docker container in prod:
 ```console
-docker compose -f compose.yaml -f compose.prod.yaml up -d
-```
-
-Check the app is in prod environment:
-```console
-docker compose exec php bin/console
+make install-prod
 ```
 
 If you have some trouble, you can check the logs:
+
 ```console
-docker compose logs -f
+make logs
+```
+
+If you have some issues with Docker cache:
+
+```console
+make reset
 ```
 
 Tests
@@ -70,8 +66,9 @@ Tests
 Execute this command to run tests:
 
 ```console
-docker compose exec php bin/phpunit
+make tests
 ```
 
 [1]: https://symfony.com/doc/current/setup.html#technical-requirements
 [2]: https://www.docker.com/products/docker-desktop/
+[3]: https://www.gnu.org/software/make/#download
