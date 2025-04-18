@@ -15,7 +15,7 @@ Installation
 Clone this repository:
 
 ```console
-https://github.com/abdounikarim/poc-symfony
+https://github.com/ProofOfConceptFactory/poc-symfony
 ```
 
 Go on the project root folder:
